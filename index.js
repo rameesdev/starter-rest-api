@@ -22,6 +22,13 @@ const render = {
 client.db("ytomp3").collection("searchCache").updateOne({q},{$set:render},{upsert:true}).then((data)=>{console.log(JSON.stringify(data)+"updated")})
 })
 })
-app.listen(3000)
+client.connect(err => {
+  if(err){ console.error(err); return false;}
+  // connection to mongo is successful, listen for requests
+  app.listen(3000, () => {
+      console.log("listening for requests");
+  })
+});
+
 
 
