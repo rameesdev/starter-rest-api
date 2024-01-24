@@ -7,6 +7,7 @@ const express = require("express")
 const app = express();
 app.get("/api/update/:q",async(req,res)=>{
 const q = req.params.q
+res.send("updated");
 await ytsearch.search({ query: q, pages: 1 })
 .then((data) => {
 console.log(data.all[0])
@@ -18,7 +19,7 @@ const render = {
   downloadUrl: `download/file/${data.all[0].videoId}`,
 };
 
-client.db("ytomp3").collection("searchCache").updateOne({q},{$set:render},{upsert:true}).then((data)=>{res.send("updated");console.log(JSON.stringify(data)+"updated")})
+client.db("ytomp3").collection("searchCache").updateOne({q},{$set:render},{upsert:true}).then((data)=>{console.log(JSON.stringify(data)+"updated")})
 })
 })
 app.listen(3000)
